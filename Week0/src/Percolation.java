@@ -18,14 +18,6 @@ public class Percolation {
         sitesCount = n * n;
         // Two extra nodes for virtual top and bottom sites
         uf = new WeightedQuickUnionUF(sitesCount + 2);
-
-        // Connect sites in the top row to the virtual top site
-        for (int idx = 0; idx < n; idx++)
-            uf.union(idx, sitesCount);
-
-        // Connect sites in the bottom row to the virtual bottom site
-        for (int idx = sitesCount - 1; idx > sitesCount - n - 1; idx--)
-            uf.union(idx, sitesCount + 1);
     }
 
     /**
@@ -39,12 +31,22 @@ public class Percolation {
         if (!isOpen(i, j)) {
             sites[i - 1][j - 1] = 1;
 
+
             // Convert 1-based indices to 0-based indices
             int x = i - 1;
             int y = j - 1;
 
-            // Declare variable for xy to 1D conversion
-            int ufIdxOne, ufIdxTwo;
+            // Declare variables for xy to 1D conversion
+            int ufIdxOne = to1D(x, y);
+            int ufIdxTwo;
+
+            // Connect the site to the virtual top site if its on the top row
+            if (i == 1)
+                uf.union(ufIdxOne, sitesCount);
+
+            // Connect the site to the virtual bottom site if its on the bottom row
+            if (i == sites.length)
+                uf.union(ufIdxOne, sitesCount + 1);
 
             // Generate adjacent site indices(top, bottom, left and right)
             int[][] adjacentIndices = new int[][]{
@@ -58,7 +60,7 @@ public class Percolation {
                 int yIndex = adjacentIndices[idx][1];
                 if (isValid(xIndex, yIndex) &&
                         isOpen(xIndex + 1, yIndex + 1)) {
-                    ufIdxOne = to1D(x, y);
+
                     ufIdxTwo = to1D(xIndex, yIndex);
 
                     // Connect the adjacent open sites
