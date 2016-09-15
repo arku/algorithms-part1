@@ -1,0 +1,6 @@
+.idea/*
+**/.floo
+**/.flooignore
+**/*.iml
+**/.idea/
+**/out/
