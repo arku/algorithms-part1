@@ -23,10 +23,10 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
         return numItems;
     }
 
-    public Item getItem(int index) {
+    private Item getItem(int index) {
         return array[index];
     }
-    public int getLength() {
+    private int getLength() {
         return array.length;
     }
 
@@ -52,7 +52,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
     }
 
     public Item sample() {
-        if(isEmpty()) throw new NoSuchElementException();
+        if (isEmpty()) throw new NoSuchElementException();
 
         int randIndex = StdRandom.uniform(numItems);
         return array[randIndex];
@@ -60,7 +60,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 
     private void resize(int size) {
         Item[] copy = (Item[]) new Object[size];
-        for(int i = 0; i < numItems; i++)
+        for (int i = 0; i < numItems; i++)
             copy[i] = array[i];
         array = copy;
     }
@@ -69,12 +69,12 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
         return new QueueIterator();
     }
     
-    class QueueIterator implements Iterator {
+    private class QueueIterator implements Iterator<Item> {
         private int current;
         private Item[] shuffled = (Item[]) new Object[numItems];
 
         public QueueIterator() {
-            for(int i = 0; i < numItems; i++) {
+            for (int i = 0; i < numItems; i++) {
                 shuffled[i] = array[i];
             }
             StdRandom.shuffle(shuffled);
@@ -85,6 +85,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
         }
 
         public Item next() {
+            if (!hasNext()) throw new NoSuchElementException();
             return shuffled[current++];
         }
 
@@ -98,7 +99,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
         queue.enqueue("d");
         queue.enqueue("e");
 
-        for(int i = 0; i < 4; i++) {
+        for (int i = 0; i < 4; i++) {
             for (String s : queue)
                 StdOut.print(s + " ");
             StdOut.println();

@@ -75,7 +75,7 @@ public class DequeTest {
         assertEquals(deque.getLast().getPrev().getItem(), "hello");
         assertEquals(deque.getFirst().getNext().getNext().getItem(), "goodbye");
         assertNull(deque.getLast().getNext());
-        assertEquals(deque.getSize(), 3);
+        assertEquals(deque.size(), 3);
     }
 
     @Test (expected = NoSuchElementException.class)
@@ -87,13 +87,13 @@ public class DequeTest {
     public void removeFirstTest() {
         deque.addLast("hi");
         deque.addFirst("hello");
-        assertEquals(deque.getSize(), 2);
+        assertEquals(deque.size(), 2);
 
         String removed = deque.removeFirst();
         assertEquals(removed, "hello");
         assertEquals(deque.getFirst().getItem(), "hi");
         assertEquals(deque.getLast().getItem(), "hi");
-        assertEquals(deque.getSize(), 1);
+        assertEquals(deque.size(), 1);
         assertNull(deque.getFirst().getNext());
         assertNull(deque.getFirst().getPrev());
         assertNull(deque.getLast().getNext());
@@ -104,7 +104,7 @@ public class DequeTest {
         assertEquals(removed, "hi");
         assertNull(deque.getFirst());
         assertNull(deque.getLast());
-        assertEquals(deque.getSize(), 0);
+        assertEquals(deque.size(), 0);
     }
 
     @Test(expected = NoSuchElementException.class)
