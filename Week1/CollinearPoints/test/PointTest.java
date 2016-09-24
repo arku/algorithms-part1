@@ -9,7 +9,7 @@ import static org.junit.Assert.*;
  * Created by lazyass on 9/21/16.
  */
 public class PointTest {
-    private Point p1, p2, p3, p4, p5, p6, p7, p8;
+    private Point p1, p2, p3, p4, p5, p6, p7, p8, p9, p10;
     @Before
     public void setup() {
         p1 = new Point(0, 0);
@@ -20,6 +20,8 @@ public class PointTest {
         p6 = new Point(0, 0);
         p7 = new Point(3, 3);
         p8 = new Point(2, 1);
+        p9 = new Point(19000, 10000);
+        p10 = new Point(1234, 5678);
     }
 
     @Test
@@ -61,6 +63,7 @@ public class PointTest {
     @Test
     public void testSlope() {
         assertEquals(-4.0, p5.slopeTo(p3), 0.001);
+        assertEquals(0.2432736688, p9.slopeTo(p10), 0.001);
     }
 
 
