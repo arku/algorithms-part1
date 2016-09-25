@@ -10,19 +10,19 @@ public class BruteCollinearPoints {
     private Bag<Point[]> fourPoint = new Bag<Point[]>();
 
     public BruteCollinearPoints(Point[] points) {
-        if(points == null)
+        if (points == null)
             throw new NullPointerException();
 
-        for(int i = 0; i < points.length; i++) {
+        for (int i = 0; i < points.length; i++) {
             if(points[i] == null)
                 throw new NullPointerException();
         }
 
         Arrays.sort(points);
         // duplicate points
-        for(int i = 1; i < points.length; i++) {
-            if(points[i].compareTo(points[i-1]) == 0)
-                throw new NullPointerException();
+        for (int i = 1; i < points.length; i++) {
+            if (points[i].compareTo(points[i-1]) == 0)
+                throw new IllegalArgumentException();
         }
 
         Point[] colPoints;
