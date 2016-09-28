@@ -2,8 +2,6 @@ import edu.princeton.cs.algs4.Bag;
 import edu.princeton.cs.algs4.In;
 import edu.princeton.cs.algs4.StdDraw;
 import edu.princeton.cs.algs4.StdOut;
-
-import java.lang.reflect.Array;
 import java.util.Arrays;
 
 public class BruteCollinearPoints {
@@ -14,7 +12,7 @@ public class BruteCollinearPoints {
             throw new NullPointerException();
 
         for (int i = 0; i < points.length; i++) {
-            if(points[i] == null)
+            if (points[i] == null)
                 throw new NullPointerException();
         }
 
@@ -26,7 +24,7 @@ public class BruteCollinearPoints {
         }
 
         Point[] colPoints;
-        for (int i = 0; i< points.length - 3; i++) {
+        for (int i = 0; i < points.length - 3; i++) {
             for (int j = i + 1; j < points.length - 2; j++) {
                 for (int k = j + 1; k < points.length - 1; k++) {
                     for (int l = k + 1; l < points.length; l++) {

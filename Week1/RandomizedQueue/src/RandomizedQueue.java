@@ -23,10 +23,10 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
         return numItems;
     }
 
-    private Item getItem(int index) {
+    public Item getItem(int index) {
         return array[index];
     }
-    private int getLength() {
+    public int getLength() {
         return array.length;
     }
 
@@ -69,7 +69,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
         return new QueueIterator();
     }
     
-    private class QueueIterator implements Iterator<Item> {
+    class QueueIterator implements Iterator<Item> {
         private int current;
         private Item[] shuffled = (Item[]) new Object[numItems];
 
@@ -85,7 +85,6 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
         }
 
         public Item next() {
-            if (!hasNext()) throw new NoSuchElementException();
             return shuffled[current++];
         }
 

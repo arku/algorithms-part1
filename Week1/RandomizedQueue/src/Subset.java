@@ -16,7 +16,7 @@ public class Subset {
         
         for (String s: rq) {
             if (counter++ < k)
-                StdOut.println(s);
+                StdOut.print(s + " ");
             else
                 break;
         }
