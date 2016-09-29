@@ -1,7 +1,5 @@
 import edu.princeton.cs.algs4.Bag;
-import edu.princeton.cs.algs4.In;
-import edu.princeton.cs.algs4.StdDraw;
-import edu.princeton.cs.algs4.StdOut;
+
 import java.util.Arrays;
 
 public class BruteCollinearPoints {
@@ -11,33 +9,37 @@ public class BruteCollinearPoints {
         if (points == null)
             throw new NullPointerException();
 
+        Point[] copyPoints = new Point[points.length];
+        System.arraycopy(points, 0, copyPoints, 0, copyPoints.length);
+
         for (int i = 0; i < points.length; i++) {
             if (points[i] == null)
                 throw new NullPointerException();
         }
 
-        Arrays.sort(points);
-        // duplicate points
-        for (int i = 1; i < points.length; i++) {
-            if (points[i].compareTo(points[i-1]) == 0)
+        // duplicate copyPoints
+
+        Arrays.sort(copyPoints);
+        for (int i = 1; i < copyPoints.length; i++) {
+            if (copyPoints[i].compareTo(copyPoints[i-1]) == 0)
                 throw new IllegalArgumentException();
         }
 
         Point[] colPoints;
-        for (int i = 0; i < points.length - 3; i++) {
-            for (int j = i + 1; j < points.length - 2; j++) {
-                for (int k = j + 1; k < points.length - 1; k++) {
-                    for (int l = k + 1; l < points.length; l++) {
+        for (int i = 0; i < copyPoints.length - 3; i++) {
+            for (int j = i + 1; j < copyPoints.length - 2; j++) {
+                for (int k = j + 1; k < copyPoints.length - 1; k++) {
+                    for (int l = k + 1; l < copyPoints.length; l++) {
                         // test for collinearity
-                        double slopePQ = points[i].slopeTo(points[j]);
-                        double slopePR = points[i].slopeTo(points[k]);
-                        double slopePS = points[i].slopeTo(points[l]);
+                        double slopePQ = copyPoints[i].slopeTo(copyPoints[j]);
+                        double slopePR = copyPoints[i].slopeTo(copyPoints[k]);
+                        double slopePS = copyPoints[i].slopeTo(copyPoints[l]);
                         if (slopePQ == slopePR && slopePR == slopePS) {
                             colPoints = new Point[4];
-                            colPoints[0] = points[i];
-                            colPoints[1] = points[j];
-                            colPoints[2] = points[k];
-                            colPoints[3] = points[l];
+                            colPoints[0] = copyPoints[i];
+                            colPoints[1] = copyPoints[j];
+                            colPoints[2] = copyPoints[k];
+                            colPoints[3] = copyPoints[l];
                             fourPoint.add(colPoints);
                         }
                     }
@@ -67,33 +69,33 @@ public class BruteCollinearPoints {
 
     public static void main(String[] args) {
 
-        // read the n points from a file
-        In in = new In(args[0]);
-        int n = in.readInt();
-        Point[] points = new Point[n];
-        for (int i = 0; i < n; i++) {
-            int x = in.readInt();
-            int y = in.readInt();
-            points[i] = new Point(x, y);
-        }
+//        // read the n copyPoints from a file
+//        In in = new In(args[0]);
+//        int n = in.readInt();
+//        Point[] copyPoints = new Point[n];
+//        for (int i = 0; i < n; i++) {
+//            int x = in.readInt();
+//            int y = in.readInt();
+//            copyPoints[i] = new Point(x, y);
+//        }
 
-        // draw the points
-        StdDraw.enableDoubleBuffering();
-        StdDraw.setXscale(0, 32768);
-        StdDraw.setYscale(0, 32768);
-        for (Point p : points) {
-            p.draw();
-        }
-        StdDraw.show();
+//        // draw the copyPoints
+//        StdDraw.enableDoubleBuffering();
+//        StdDraw.setXscale(0, 32768);
+//        StdDraw.setYscale(0, 32768);
+//        for (Point p : copyPoints) {
+//            p.draw();
+//        }
+//        StdDraw.show();
 
-        // print and draw the line segments
-        BruteCollinearPoints collinear = new BruteCollinearPoints(points);
-        StdOut.print(collinear.numberOfSegments());
-        for (LineSegment segment : collinear.segments()) {
-            StdOut.println(segment);
-            segment.draw();
-        }
-        StdDraw.show();
+//        // print and draw the line segments
+//        BruteCollinearPoints collinear = new BruteCollinearPoints(copyPoints);
+//        StdOut.print(collinear.numberOfSegments());
+//        for (LineSegment segment : collinear.segments()) {
+//            StdOut.println(segment);
+//            segment.draw();
+//        }
+//        StdDraw.show();
     }
 
 

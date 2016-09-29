@@ -1,7 +1,7 @@
-import edu.princeton.cs.algs4.In;
-import edu.princeton.cs.algs4.ResizingArrayQueue;
-import edu.princeton.cs.algs4.StdDraw;
-import edu.princeton.cs.algs4.StdOut;
+ import edu.princeton.cs.algs4.In;
+ import edu.princeton.cs.algs4.ResizingArrayQueue;
+ import edu.princeton.cs.algs4.StdDraw;
+ import edu.princeton.cs.algs4.StdOut;
 
 import java.util.Arrays;
 
@@ -10,31 +10,36 @@ public class FastCollinearPoints {
     private ResizingArrayQueue<LineSegment> segments = new ResizingArrayQueue<>();
 
     public FastCollinearPoints(Point[] points) {
+
+        Point[] setOfPoints = new Point[points.length];
+
         if (points == null)
             throw new NullPointerException();
 
-        for (int i = 0; i < points.length; i++) {
-            if (points[i] == null)
+        System.arraycopy(points, 0, setOfPoints, 0, points.length);
+
+        for (int i = 0; i < setOfPoints.length; i++) {
+            if (setOfPoints[i] == null)
                 throw new NullPointerException();
         }
 
-        Arrays.sort(points);
+        Arrays.sort(setOfPoints);
         // duplicate points
-        for (int i = 1; i < points.length; i++) {
-            if (points[i].compareTo(points[i-1]) == 0)
+        for (int i = 1; i < setOfPoints.length; i++) {
+            if (setOfPoints[i].compareTo(setOfPoints[i-1]) == 0)
                 throw new IllegalArgumentException();
         }
 
-        Point[] copyPoints = new Point[points.length];
+        Point[] copyPoints = new Point[setOfPoints.length];
 
-        for (int i = 0; i < points.length; i++) {
-            System.arraycopy(points, 0, copyPoints, 0, points.length);
-            Arrays.sort(copyPoints, points[i].slopeOrder()); // nlg n
+        for (int i = 0; i < setOfPoints.length; i++) {
+            System.arraycopy(setOfPoints, 0, copyPoints, 0, setOfPoints.length);
+            Arrays.sort(copyPoints, setOfPoints[i].slopeOrder()); // nlg n
 
 
 
             for (int j = 1; j < copyPoints.length - 2; j++) { // n
-                double slope = points[i].slopeTo(copyPoints[j]); // 0 and 2
+                double slope = setOfPoints[i].slopeTo(copyPoints[j]); // 0 and 2
                 int k = j + 1, copy = j;
                 int size = segments.size();
 
@@ -45,7 +50,7 @@ public class FastCollinearPoints {
 
                 // Check if the sequence length is greater than or equal to 3
                 if (k - copy >= 3 && copyPoints[0].compareTo(copyPoints[copy]) < 0) {
-                    segments.enqueue(new LineSegment(points[i], copyPoints[k-1]));
+                    segments.enqueue(new LineSegment(setOfPoints[i], copyPoints[k-1]));
                 }
 
                 if (segments.size() > size) {
@@ -89,12 +94,9 @@ public class FastCollinearPoints {
             p.draw();
         }
             StdDraw.show();
-
         // print and draw the line segments
         FastCollinearPoints collinear = new FastCollinearPoints(points);
-
-            StdOut.print(collinear.numberOfSegments());
-            for (LineSegment segment : collinear.segments()) {
+        for (LineSegment segment : collinear.segments()) {
             StdOut.println(segment);
             segment.draw();
         }

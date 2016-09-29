@@ -18,7 +18,6 @@ public class Point implements Comparable<Point> {
 
     /**
      * Initializes a new point.
-     *
      * @param  x the <em>x</em>-coordinate of the point
      * @param  y the <em>y</em>-coordinate of the point
      */
@@ -112,6 +111,15 @@ public class Point implements Comparable<Point> {
           @Override
           public int compare(Point point1, Point point2) {
 
+              if ((slopeTo(point1) == 1.0 / 0 && slopeTo(point2) == 1.0 / 0) ||
+                  (slopeTo(point1) == -1.0 / 0 && slopeTo(point2) == -1.0 / 0)) {
+                  return 0;
+              } else if (slopeTo(point1) == -1.0 / 0 && slopeTo(point2) == 1.0 / 0) {
+                  return -1;
+              } else if (slopeTo(point1) == 1.0 / 0 && slopeTo(point2) == -1.0 / 0) {
+                  return 1;
+              }
+
               double slopeDiff = slopeTo(point1) - slopeTo(point2);
               if (slopeDiff < 0)
                   return -1;
@@ -127,7 +135,6 @@ public class Point implements Comparable<Point> {
      * Returns a string representation of this point.
      * This method is provide for debugging;
      * your program should not rely on the format of the string representation.
-     *
      * @return a string representation of this point
      */
     public String toString() {
@@ -141,7 +148,7 @@ public class Point implements Comparable<Point> {
     public static void main(String[] args) {
         /* YOUR CODE HERE */
 //        Point p1, p2, p3, p4, p5, p6, p7, p8;
-//
+
 //        p1 = new Point(0, 0);
 //        p2 = new Point(-1, -1);
 //        p3 = new Point(2, 3);
@@ -150,10 +157,9 @@ public class Point implements Comparable<Point> {
 //        p6 = new Point(0, 0);
 //        p7 = new Point(3, 3);
 //        p8 = new Point(2, 1);
-//
 //        Point[] pts = new Point[]{ p1, p2, p3, p4, p5, p6, p7, p8};
 //        Arrays.sort(pts, p1.slopeOrder());
-//
+
 //        for (int i = 0; i < pts.length; i++) {
 //            StdOut.print(pts[i] + " ");
 //        }

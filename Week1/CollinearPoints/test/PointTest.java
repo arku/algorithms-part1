@@ -66,5 +66,11 @@ public class PointTest {
         assertEquals(0.2432736688, p9.slopeTo(p10), 0.001);
     }
 
+    @Test
+    public void trial54() {
+        Point p54 = new Point(62, 403);
+        Point q54 = new Point(62, 62);
+        assertEquals(0, p54.slopeOrder().compare(q54, q54));
+    }
 
 }
